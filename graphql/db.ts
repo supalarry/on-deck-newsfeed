@@ -61,3 +61,10 @@ export type AnnouncementRow = {
   created_ts: Date;
   updated_ts: Date;
 }
+
+export type FellowshipRow = {
+  id: number;
+  name: string;
+  created_ts: Date;
+  updated_ts: Date;
+}
