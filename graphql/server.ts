@@ -19,6 +19,11 @@ const typeDefs = gql`
     projects: [Project!]!
   }
 
+  type Fellowship {
+    id: Int!
+    name: String!
+  }
+
   type Query {
     project(id: Int!): Project!
     user(id: Int!): User!
