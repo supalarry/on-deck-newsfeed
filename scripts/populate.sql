@@ -157,3 +157,10 @@ VALUES
   "Get ready for Global Build Weekend Pitches next Sunday, 2/21 🌐🛠!",
   "While registration has **closed**, if you've not signed up yet, you're invited to join Build Weekend pitches on Sunday, 2/21! GBW is our flagship cross-fellowship event, bringing together 300+ fellows across 7+ programs for a weekend of tinkering." || char(10) || char(10) || "If you've already registered, hang tight for more information!"
 );
+
+INSERT INTO fellowships
+(id, name)
+VALUES
+(1, "angels"),
+(2, "founders"),
+(3, "writers");
