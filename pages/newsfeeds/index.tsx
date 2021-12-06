@@ -8,8 +8,8 @@ export default function NewsfeedsPage() {
   const {data, error, loading} = useQuery<QueryData>(
     FELLOWSHIPS_QUERY
   )
-  const [newsfeedId, setNewsfeedId] = useState<number>(0);
-  const [fellowships, setFellowships] = useState<Fellowship[]>([]);
+  const [newsfeedId, setNewsfeedId] = useState<number | undefined>();
+  const [fellowships, setFellowships] = useState<Fellowship[] | undefined>();
 
   useEffect(() => {
     if (data?.fellowships && !loading && !error) {
