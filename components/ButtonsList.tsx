@@ -5,13 +5,14 @@ interface Button {
   name: string;
 }
 
-export default function ButtonsList({buttons, handleButtonClick} : {buttons: Button[], handleButtonClick: (id: number) => void}) {
+export default function ButtonsList({buttons, handleButtonClick, activeButtonId} : {buttons: Button[], handleButtonClick: (id: number) => void, activeButtonId: number}) {
   return (
     <Stack direction='row' spacing={4} align='center'>
         {
           buttons && buttons.map(button => {
             return (
               <Button
+                isActive={button.id === activeButtonId}
                 onClick={() => handleButtonClick(button.id)}
                 key={button.id}
                 colorScheme='blue'

@@ -25,7 +25,7 @@ export default function NewsfeedsPage() {
   return (
     <Layout>
       <Heading>Newsfeed for</Heading>
-      <ButtonsList buttons={fellowships} handleButtonClick={setNewsfeedId}/>
+      <ButtonsList buttons={fellowships} handleButtonClick={setNewsfeedId} activeButtonId={newsfeedId!}/>
     </Layout>
   )
 }
