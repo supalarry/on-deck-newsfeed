@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS user_projects;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS projects;
 DROP TABLE IF EXISTS announcements;
+DROP TABLE IF EXISTS fellowships;
 
 
 CREATE TABLE users (
@@ -41,6 +42,12 @@ CREATE TABLE announcements (
     updated_ts  TIMESTAMP     DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE fellowships (
+    id          INTEGER       PRIMARY KEY,
+    name        VARCHAR(128)  NOT NULL,
+    created_ts  TIMESTAMP     DEFAULT CURRENT_TIMESTAMP,
+    updated_ts  TIMESTAMP     DEFAULT CURRENT_TIMESTAMP
+);
 
 INSERT INTO users
 (id, created_ts, updated_ts, avatar_url, fellowship, name, bio)
