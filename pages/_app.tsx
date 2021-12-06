@@ -1,5 +1,6 @@
 import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client'
 import {createGlobalStyle, ThemeProvider} from 'styled-components'
+import { ChakraProvider } from '@chakra-ui/react'
 import type { AppProps } from 'next/app'
 
 export default function MyApp({ Component, pageProps }: AppProps) {
@@ -8,7 +9,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <GlobalStyle />
       <ThemeProvider theme={theme}>
         <ApolloProvider client={client}>
-          <Component {...pageProps} />
+          <ChakraProvider>
+            <Component {...pageProps} />
+          </ChakraProvider>
         </ApolloProvider>
       </ThemeProvider>
     </>
