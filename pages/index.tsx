@@ -23,7 +23,7 @@ export default function Home() {
           >
             Inspire and be inspired.
           </Text>
-          <Text align="center" fontSize={{ base: 'xl', md: '2xl'}} color="#fafafa">
+          <Text align="center" mt={{ base: 4, md: 0 }} fontSize={{ base: 'xl', md: '2xl'}} color="#fafafa">
             Our newsfeed is a door to once in a lifetime opportunities and connections.<br></br>
             It's a newsfeed worth scrolling.
           </Text>
