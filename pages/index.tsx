@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { Flex, Link as ChakraLink, Image, Text, Button } from '@chakra-ui/react'
-
+import { IoMdExit } from '@react-icons/all-files/io/IoMdExit'
 
 export default function Home() {
   return (
@@ -28,7 +28,7 @@ export default function Home() {
             It's a newsfeed worth scrolling.
           </Text>
           <Link href="/newsfeeds">
-            <Button mt={8} color='#fafafa' bg='#773de2' _hover={{ bg: '#e95370' }} size="lg">
+            <Button mt={8} color='#fafafa' bg='#773de2' _hover={{ bg: '#e95370' }} size="lg" rightIcon={<IoMdExit />}>
               Newsfeed
             </Button>
           </Link>
