@@ -1,11 +1,15 @@
 import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client'
 import {createGlobalStyle, ThemeProvider} from 'styled-components'
 import { ChakraProvider } from '@chakra-ui/react'
+import Head from 'next/head'
 import type { AppProps } from 'next/app'
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
+      <Head>
+        <link rel="icon" href="/on-deck-logo.png"/>
+      </Head>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
         <ApolloProvider client={client}>
