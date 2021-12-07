@@ -1,20 +1,35 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import Layout from 'components/Layout'
+import { Flex, Image, Text, Button } from '@chakra-ui/react'
+
 
 export default function Home() {
   return (
-    <Layout>
+    <>
       <Head>
-        <title>On Deck Newsfeed</title>
+        <title>Newsfeed worth scrolling</title>
       </Head>
-      <h1>Hello there!</h1>
-      <p>Your future newsfeed goes to this page. Or not, you decide 🤷</p>
-      <span>Check out these pages:</span>
-      <ul>
-        <li>Project <Link href="/projects/10">Blue Onion Labs</Link></li>
-        <li>User <Link href="/users/11">Cai Burris</Link></li>
-      </ul>
-    </Layout>
+      <Flex  w='100vw' direction="column" h='100vh' bg="#1b263c" display="flex" align="center" justify="center">
+        <Image src='/on-deck-logo-and-name.png' borderBottomRadius="15" position="absolute" top="0" width='150px'/>
+        <Text
+          bgGradient='linear(to-r, #305cea, #773de2, #e95370)'
+          bgClip='text'
+          fontSize='8xl'
+          fontWeight='extrabold'
+          align="center"
+        >
+          Inspire and be inspired.
+        </Text>
+        <Text align="center" fontSize='2xl' color="#fafafa">
+          Our newsfeed is a door to once in a lifetime opportunities and connections.
+        </Text>
+        <Text align="center" fontSize='2xl' color="#fafafa">A newsfeed worth scrolling.</Text>
+        <Link href="/newsfeeds">
+          <Button mt={8} color='#fafafa' bg='#773de2' _hover={{ bg: '#e95370' }} size="lg">
+            Read
+          </Button>
+        </Link>
+      </Flex>
+    </>
   )
 }
