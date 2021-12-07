@@ -25,7 +25,7 @@ export default function Home() {
         <Text align="center" fontSize='2xl' color="#fafafa">
           Our newsfeed is a door to once in a lifetime opportunities and connections.
         </Text>
-        <Text align="center" fontSize='2xl' color="#fafafa">A newsfeed worth scrolling.</Text>
+        <Text align="center" fontSize='2xl' color="#fafafa">It's a newsfeed worth scrolling.</Text>
         <Link href="/newsfeeds">
           <Button mt={8} color='#fafafa' bg='#773de2' _hover={{ bg: '#e95370' }} size="lg">
             Read
