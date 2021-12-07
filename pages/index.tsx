@@ -12,7 +12,7 @@ export default function Home() {
       <Flex  w='100vw' direction="column" h='100vh' bg="#182135" display="flex" align="center" justify="center">
         <Flex  w='95vw' direction="column" h='90vh' bg="#1b263c" display="flex" align="center" justify="center" borderRadius="15" padding={4}>
           <ChakraLink href="https://www.beondeck.com/" isExternal position="absolute" top="0" boxShadow='dark-lg' borderBottomRadius="15">
-              <Image src='/on-deck-logo-and-name.png' borderBottomRadius="15" width='150px'/>
+              <Image src='/on-deck-logo-and-name.png' borderBottomRadius="15" width='150px' opacity='0.9'/>
           </ChakraLink>
           <Text
             bgGradient='linear(to-r, #305cea, #773de2, #e95370)'
