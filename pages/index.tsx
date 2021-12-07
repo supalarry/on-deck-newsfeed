@@ -29,7 +29,7 @@ export default function Home() {
           </Text>
           <Link href="/newsfeeds">
             <Button mt={8} color='#fafafa' bg='#773de2' _hover={{ bg: '#e95370' }} size="lg">
-              Read
+              Newsfeed
             </Button>
           </Link>
         </Flex>
