@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { Flex, Image, Text, Button } from '@chakra-ui/react'
+import { Flex, Link as ChakraLink, Image, Text, Button } from '@chakra-ui/react'
 
 
 export default function Home() {
@@ -10,7 +10,9 @@ export default function Home() {
         <title>Newsfeed worth scrolling</title>
       </Head>
       <Flex  w='100vw' direction="column" h='100vh' bg="#1b263c" display="flex" align="center" justify="center">
-        <Image src='/on-deck-logo-and-name.png' borderBottomRadius="15" position="absolute" top="0" width='150px'/>
+        <ChakraLink href="https://www.beondeck.com/" isExternal position="absolute" top="0">
+            <Image src='/on-deck-logo-and-name.png' borderBottomRadius="15" width='150px'/>
+        </ChakraLink>
         <Text
           bgGradient='linear(to-r, #305cea, #773de2, #e95370)'
           bgClip='text'
