@@ -44,7 +44,7 @@ CREATE TABLE announcements (
 
 CREATE TABLE fellowships (
     id          INTEGER       PRIMARY KEY,
-    name        VARCHAR(128)  NOT NULL,
+    name        VARCHAR(64)   NOT NULL,
     created_ts  TIMESTAMP     DEFAULT CURRENT_TIMESTAMP,
     updated_ts  TIMESTAMP     DEFAULT CURRENT_TIMESTAMP
 );
