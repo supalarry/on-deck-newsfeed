@@ -33,7 +33,7 @@ export default function UserCard({user}: Props) {
           <h2>{user.name}</h2>
           <p>Fellowship: {user.fellowship}</p>
           <Markdown>{user.bio}</Markdown>
-          {!!user.projects.length && (
+          {!!user.projects?.length && (
             <>
               <h3>Projects:</h3>
               {user.projects.map(p => (
