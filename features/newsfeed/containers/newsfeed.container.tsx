@@ -53,6 +53,15 @@ export default function NewsfeedContainer({fellowship} : Props) {
   }
 
   useEffect(() => {
+    setPosts([]);
+    queryOffsets = {
+      usersOffset: 0,
+      projectsOffset: 0,
+      announcementsOffset: 0
+    }
+  }, [fellowship])
+
+  useEffect(() => {
     if (data?.newsfeed && !loading && !error) {
       let newPosts = getNewsfeedPosts(data.newsfeed);
       newPosts = sortByNewest(newPosts);
