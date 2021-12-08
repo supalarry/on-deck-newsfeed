@@ -1,9 +1,10 @@
 import Newsfeed from '../components/newsfeed.component';
-import {useQuery, DocumentNode, gql} from '@apollo/client'
+import {useQuery, DocumentNode, gql, GraphQLRequest} from '@apollo/client'
 import {useEffect, useState} from 'react'
 import {FellowshipName, Post, NewsfeedResponse} from '../../../shared/types'
 import {DB_QUERY_BATCH_SIZE} from '../../../shared/constants'
 import {isUser, isProject, isAnnouncement} from '../helpers/identifyPostType'
+import { fellowships } from 'graphql/resolvers/Query';
 
 type Props = {
   fellowship: FellowshipName;
@@ -19,23 +20,20 @@ type QueryVars = {
   announcementsOffset: number;
 }
 
-const queryOffsets = {
+let queryOffsets = {
   usersOffset: 0,
   projectsOffset: 0,
   announcementsOffset: 0
 }
 
 export default function NewsfeedContainer({fellowship} : Props) {
-  const query = getNewsfeedQuery(fellowship);
+  const [posts, setPosts] = useState<Post[]>([]);
   const {data, error, loading, fetchMore} = useQuery<QueryData, QueryVars>(
-    query,
+    getNewsfeedQuery(fellowship),
     {
       variables: queryOffsets
     }
   )
-
-  const [posts, setPosts] = useState<Post[] | undefined>();
-  const [newPosts, setNewPosts] =useState<Post[] | undefined>();
   
   function fetchMorePosts() {
     fetchMore({
@@ -44,28 +42,25 @@ export default function NewsfeedContainer({fellowship} : Props) {
         if (!fetchMoreResult) {
           return pv;
         }
-        let postsX = getNewsfeedPosts(fetchMoreResult!.newsfeed);
-        postsX = sortByNewest(postsX);
-        postsX = postsX.slice(0, DB_QUERY_BATCH_SIZE);
-        updateOffsets(postsX, queryOffsets);
-        const combined = [...postsX];
-        setNewPosts(combined);
-        return fetchMoreResult;
+        return {
+          __typename: "Newsfeed",
+          newsfeed: {
+            ...fetchMoreResult.newsfeed,
+          }
+        }
       }
     })
   }
 
   useEffect(() => {
-    if (data?.newsfeed && !loading && !error && !posts) {
-      let posts = getNewsfeedPosts(data.newsfeed);
-      posts = sortByNewest(posts);
-      posts = posts.slice(0, DB_QUERY_BATCH_SIZE);
-      updateOffsets(posts, queryOffsets);
-      setPosts(posts);
-    } else if (posts) {
-      setPosts([...posts, ...newPosts!]);
+    if (data?.newsfeed && !loading && !error) {
+      let newPosts = getNewsfeedPosts(data.newsfeed);
+      newPosts = sortByNewest(newPosts);
+      newPosts = newPosts.slice(0, DB_QUERY_BATCH_SIZE);
+      updateOffsets(newPosts, queryOffsets);
+      setPosts([...posts, ...newPosts]);
     }
-  }, [data, loading, error, newPosts])
+  }, [data, loading, error])
 
   if (!posts || loading || error) {
     return null
