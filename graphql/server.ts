@@ -8,6 +8,7 @@ const typeDefs = gql`
     fellowship: String!
     title: String!
     body: String!
+    created_ts: String!
   }
 
   type Project {
@@ -16,6 +17,7 @@ const typeDefs = gql`
     description: String!
     icon_url: String!
     users: [User!]!
+    created_ts: String!
   }
 
   type User {
@@ -25,6 +27,7 @@ const typeDefs = gql`
     avatar_url: String!
     fellowship: String!
     projects: [Project!]!
+    created_ts: String!
   }
 
   type Fellowship {
@@ -33,11 +36,9 @@ const typeDefs = gql`
   }
 
   type Newsfeed {
-    founders: [User!]
-    angels: [User!]
-    writers: [User!]
-    projects: [Project!]
-    announcements(fellowship: String!): [Announcement!]
+    users(fellowship: String!, offset: Int!): [User!]
+    projects(offset: Int!): [Project!]
+    announcements(fellowship: String!, offset: Int!): [Announcement!]
   }
 
   type Query {
