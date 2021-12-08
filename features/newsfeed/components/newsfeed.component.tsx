@@ -21,9 +21,6 @@ export default function Newsfeed({posts, handleScrolledToBottom} : Props) {
         } else if (isAnnouncement(post)) {
           return <AnnouncementCard announcement={post} key={`${index}_${post.id}`}/>
         }
-        {
-
-        }
       })}
       <Waypoint onEnter={() => handleScrolledToBottom()}></Waypoint>
     </section>
