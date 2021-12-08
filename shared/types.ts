@@ -6,6 +6,8 @@ export type Project = {
   description: string;
   icon_url: string;
   users: User[];
+  created_ts: string;
+  __typename: string;
 }
 
 export type User = {
@@ -15,6 +17,8 @@ export type User = {
   fellowship: "founders" | "angels" | "writers";
   avatar_url: string;
   projects: Project[];
+  created_ts: string;
+  __typename: string;
 }
 
 export type Announcement = {
@@ -22,6 +26,8 @@ export type Announcement = {
   fellowship: string;
   title: string;
   body: string;
+  created_ts: string;
+  __typename: string;
 }
 
 export type NewsfeedResponse = {
@@ -30,4 +36,5 @@ export type NewsfeedResponse = {
   writers?: User[];
   projects?: Project[];
   announcements: Announcement[]
+  created_ts: string;
 }
