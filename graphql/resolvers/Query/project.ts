@@ -1,7 +1,7 @@
 import db, {ProjectRow} from '../../db'
 
 type Args = {
-  id: number;
+  id: string;
 }
 
 export default async function project(parent: unknown, {id}: Args): Promise<ProjectRow> {

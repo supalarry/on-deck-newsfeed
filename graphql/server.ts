@@ -25,8 +25,8 @@ const typeDefs = gql`
   }
 
   type Query {
-    project(id: Int!): Project!
-    user(id: Int!): User!
+    project(id: ID!): Project!
+    user(id: ID!): User!
     fellowships: [Fellowship]!
   }
 `;

@@ -1,7 +1,7 @@
 import db, {UserRow} from '../../db'
 
 type Args = {
-  id: number;
+  id: string;
 }
 
 export default async function user(parent: unknown, {id}: Args): Promise<UserRow> {
