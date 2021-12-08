@@ -1,4 +1,5 @@
 export type FellowshipName = 'founders' | 'angels' | 'writers'
+export type Post = User | Project | Announcement
 
 export type Project = {
   id: number;
