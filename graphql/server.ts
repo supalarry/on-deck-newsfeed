@@ -36,6 +36,7 @@ const typeDefs = gql`
     founders: [User!]
     angels: [User!]
     writers: [User!]
+    projects: [Project!]
     announcements(fellowship: String!): [Announcement!]
   }
 
