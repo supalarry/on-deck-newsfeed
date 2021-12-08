@@ -1,28 +1,18 @@
-import {User, Project, Announcement} from '../../../shared/types'
 import UserCard from 'components/UserCard';
 import ProjectCard from 'components/ProjectCard';
 import AnnouncementCard from 'components/AnnouncementCard'; 
-type Post = User | Project | Announcement
+import {Waypoint} from 'react-waypoint';
+import {Post} from '../../../shared/types';
+import {isUser, isProject, isAnnouncement} from '../helpers/identifyPostType';
 
 type Props = {
   posts: Post[];
+  handleScrolledToBottom: Function;
 }
 
-export default function Newsfeed({posts} : Props) {
-  function isUser(post: Post): post is User {
-    return post && !!(post as User).bio;
-  }
-
-  function isProject(post: Post): post is Project {
-    return post && !!(post as Project).description;
-  }
-
-  function isAnnouncement(post: Post): post is Announcement {
-    return post && !!(post as Announcement).body;
-  }
-
+export default function Newsfeed({posts, handleScrolledToBottom} : Props) {
   return (
-    <>
+    <section>
       {posts.map((post, index) => {
         if (isUser(post)) {
           return <UserCard user={post} key={`${index}_${post.id}`}/>
@@ -31,7 +21,11 @@ export default function Newsfeed({posts} : Props) {
         } else if (isAnnouncement(post)) {
           return <AnnouncementCard announcement={post} key={`${index}_${post.id}`}/>
         }
+        {
+
+        }
       })}
-    </>
+      <Waypoint onEnter={() => handleScrolledToBottom()}></Waypoint>
+    </section>
   )
 }
