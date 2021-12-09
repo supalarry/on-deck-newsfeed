@@ -36,7 +36,7 @@ const typeDefs = gql`
   }
 
   type Newsfeed {
-    users(fellowship: String!, offset: Int!): [User!]
+    users(fellowships: [String!], offset: Int!): [User!]
     projects(offset: Int!): [Project!]
     announcements(fellowship: String!, offset: Int!): [Announcement!]
   }

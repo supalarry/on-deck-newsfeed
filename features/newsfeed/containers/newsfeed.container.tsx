@@ -121,7 +121,7 @@ function getNewsfeedQuery(fellowship: FellowshipName): DocumentNode {
     founders: gql`
       query newsfeed($usersOffset: Int!, $projectsOffset: Int!, $announcementsOffset: Int!) {
         newsfeed {
-          founders: users(fellowship: "founders", offset: $usersOffset) {
+          users(fellowships: ["founders", "angels"], offset: $usersOffset) {
             id
             name
             bio
@@ -133,14 +133,6 @@ function getNewsfeedQuery(fellowship: FellowshipName): DocumentNode {
               description
               icon_url
             }
-            created_ts
-          }
-          angels: users(fellowship: "angels", offset: $usersOffset) {
-            id
-            name
-            bio
-            fellowship
-            avatar_url
             created_ts
           }
           projects(offset: $projectsOffset) {
@@ -170,7 +162,7 @@ function getNewsfeedQuery(fellowship: FellowshipName): DocumentNode {
     angels: gql`
       query newsfeed($usersOffset: Int!, $projectsOffset: Int!, $announcementsOffset: Int!) {
         newsfeed {
-          founders: users(fellowship: "founders", offset: $usersOffset) {
+          users(fellowships: ["founders", "angels"], offset: $usersOffset) {
             id
             name
             bio
@@ -182,14 +174,6 @@ function getNewsfeedQuery(fellowship: FellowshipName): DocumentNode {
               description
               icon_url
             }
-            created_ts
-          }
-          angels: users(fellowship: "angels", offset: $usersOffset) {
-            id
-            name
-            bio
-            fellowship
-            avatar_url
             created_ts
           }
           projects(offset: $projectsOffset) {
@@ -219,7 +203,7 @@ function getNewsfeedQuery(fellowship: FellowshipName): DocumentNode {
     writers: gql`
       query newsfeed($usersOffset: Int!, $announcementsOffset: Int!) {
         newsfeed {
-          users(fellowship: "writers", offset: $usersOffset) {
+          users(fellowships: ["writers"], offset: $usersOffset) {
             id
             name
             bio
