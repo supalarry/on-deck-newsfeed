@@ -4,7 +4,7 @@ import Layout from 'components/Layout'
 import UserCard from 'components/UserCard'
 
 const USER_QUERY = gql`
-  query user($id: Int!) {
+  query user($id: ID!) {
     user(id: $id) {
       id
       name

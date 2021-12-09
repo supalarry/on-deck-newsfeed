@@ -4,7 +4,7 @@ import Layout from 'components/Layout'
 import ProjectCard from 'components/ProjectCard'
 
 const PROJECT_QUERY = gql`
-  query project($id: Int!) {
+  query project($id: ID!) {
     project(id: $id) {
       id
       name
