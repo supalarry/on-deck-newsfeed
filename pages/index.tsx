@@ -28,7 +28,7 @@ export default function Home() {
             It's a newsfeed worth scrolling.
           </Text>
           <Link href="/newsfeeds">
-            <Button mt={8} color='#fafafa' bg='#773de2' _hover={{ bg: '#e95370' }} size="lg" rightIcon={<IoMdExit />}>
+            <Button mt={8} color='#fafafa' bg='#773de2' _hover={{ bg: '#824ee4' }} size="lg" rightIcon={<IoMdExit />}>
               Newsfeed
             </Button>
           </Link>
