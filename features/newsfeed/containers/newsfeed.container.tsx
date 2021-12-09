@@ -19,29 +19,28 @@ type QueryVars = {
   announcementsOffset: number;
 }
 
-let queryOffsets = {
-  usersOffset: 0,
-  projectsOffset: 0,
-  announcementsOffset: 0
-}
-
 export default function NewsfeedContainer({fellowship} : Props) {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [usersOffset, setUsersOffset] = useState(0);
+  const [projectsOffset, setProjectsOffset] = useState(0);
+  const [announcementsOffset, setAnnouncementsOffset] = useState(0);
 
   const {data, error, loading, fetchMore} = useQuery<QueryData, QueryVars>(
     getNewsfeedQuery(fellowship),
     {
-      variables: queryOffsets
+      variables: {
+        usersOffset: 0,
+        projectsOffset: 0,
+        announcementsOffset: 0
+      }
     }
   )
 
   useEffect(() => {
     setPosts([]);
-    queryOffsets = {
-      usersOffset: 0,
-      projectsOffset: 0,
-      announcementsOffset: 0
-    }
+    setUsersOffset(0);
+    setProjectsOffset(0);
+    setAnnouncementsOffset(0);
   }, [fellowship])
 
   useEffect(() => {
@@ -49,13 +48,20 @@ export default function NewsfeedContainer({fellowship} : Props) {
       const newPosts = getNextPostsBatch(data.newsfeed);
       setPosts([...posts, ...newPosts]);
 
-      updateQueryOffsets(queryOffsets, newPosts);
+      const increase = getPostIncreasesByCategory(newPosts);
+      setUsersOffset(usersOffset + increase.users);
+      setProjectsOffset(projectsOffset + increase.projects);
+      setAnnouncementsOffset(announcementsOffset + increase.announcements);
     }
   }, [data, loading, error])
 
   function fetchMorePosts() {
     fetchMore({
-      variables: queryOffsets,
+      variables: {
+        usersOffset,
+        projectsOffset,
+        announcementsOffset
+      },
       updateQuery: (latestResult, { fetchMoreResult }) => {
         if (!fetchMoreResult) {
           return latestResult;
@@ -115,16 +121,32 @@ function selectLatestPosts(posts: Post[], count: number) {
   return posts.slice(0, count);
 }
 
-function updateQueryOffsets(offsets: QueryVars, posts: Post[]) {
+type PostIncrease = {
+  users: number;
+  projects: number;
+  announcements: number;
+}
+
+function getPostIncreasesByCategory(posts: Post[]): PostIncrease {
+  let users = 0;
+  let projects = 0;
+  let announcements = 0;
+
   posts.forEach(post => {
     if (isUser(post)) {
-      offsets.usersOffset += 1;
+      users += 1;
     } else if (isProject(post)) {
-      offsets.projectsOffset += 1;
+      projects += 1;
     } else if (isAnnouncement(post)) {
-      offsets.announcementsOffset += 1;
+      announcements += 1;
     }
   })
+
+  return {
+    users,
+    projects,
+    announcements
+  }
 }
 
 function getNewsfeedQuery(fellowship: FellowshipName): DocumentNode {
