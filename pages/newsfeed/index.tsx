@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { Heading } from '@chakra-ui/react';
 import { FellowshipName } from '../../shared/types';
 
-export default function NewsfeedsPage() {
+export default function NewsfeedPage() {
   const [fellowships, setFellowships] = useState<Fellowship[]>();
   const [chosenFellowship, setChosenFellowship] = useState<FellowshipName>();
 

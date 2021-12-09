@@ -33,7 +33,7 @@ export default function Home() {
             {subHeadingOne} <br/>
             {subHeadingTwo}
           </Text>
-          <Link href="/newsfeeds">
+          <Link href="/newsfeed">
             <Button color='#fafafa' bg='#773de2' _hover={{ bg: '#824ee4' }}
               mt={8}  size="lg" rightIcon={<IoMdExit />}>
               {newsfeedPageButton}
