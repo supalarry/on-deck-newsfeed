@@ -7,7 +7,7 @@ type Args = {
 }
 
 export default async function users(parent: unknown, {fellowships, offset}: Args): Promise<UserRow[]> {
-  const WHERE_STATEMENT = addMultipleOrClauses('fellowship', fellowships.length);
+  const WHERE_STATEMENT = createWhereOrStatement('fellowship', fellowships.length);
   const users: UserRow[] = await db.getAll(
     `
       SELECT *
@@ -20,12 +20,12 @@ export default async function users(parent: unknown, {fellowships, offset}: Args
   return users
 }
 
-function addMultipleOrClauses(column: string, count: number): string {
+function createWhereOrStatement(column: string, possibleValuesCount: number): string {
   let statement = `WHERE ${column} = ?`;
-  count -= 1;
-  while (count > 0) {
+
+  while (possibleValuesCount > 1) {
     statement = `${statement} OR ${column} = ?`
-    count -= 1;
+    possibleValuesCount -= 1;
   }
   return statement;
 }
