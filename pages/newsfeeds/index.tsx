@@ -1,34 +1,38 @@
-import {useQuery, gql} from '@apollo/client'
-import { useState, useEffect } from 'react';
-import { Heading } from '@chakra-ui/react'
-import ButtonsList from '../../components/ButtonsList'
-import Layout from 'components/Layout'
+import ButtonsList from '../../components/ButtonsList';
+import Layout from 'components/Layout';
 import NewsfeedContainer from 'features/newsfeed/containers/newsfeed.container';
+import { useQuery, gql } from '@apollo/client';
+import { useState, useEffect } from 'react';
+import { Heading } from '@chakra-ui/react';
 import { FellowshipName } from '../../shared/types';
 
 export default function NewsfeedsPage() {
+  const [fellowships, setFellowships] = useState<Fellowship[]>();
+  const [chosenFellowship, setChosenFellowship] = useState<FellowshipName>();
+
   const {data, error, loading} = useQuery<QueryData>(
     FELLOWSHIPS_QUERY
   )
-  const [newsfeedFellowship, setNewsfeedFellowship] = useState<FellowshipName | undefined>();
-  const [fellowships, setFellowships] = useState<Fellowship[] | undefined>();
 
   useEffect(() => {
     if (data?.fellowships && !loading && !error) {
       setFellowships(data.fellowships);
-      setNewsfeedFellowship(data.fellowships[0].name);
+      setChosenFellowship(data.fellowships[0].name);
     }
   }, [data, loading, error])
 
-  if (!fellowships || loading || error) {
+  if (!fellowships || !chosenFellowship || loading || error) {
     return null
   }
 
   return (
     <Layout>
-      <Heading>Newsfeed for</Heading>
-      <ButtonsList buttons={fellowships} handleButtonClick={setNewsfeedFellowship} activeButtonName={newsfeedFellowship!}/>
-      <NewsfeedContainer fellowship={newsfeedFellowship!} />
+      <div>
+        <Heading>Newsfeed for</Heading>
+        <ButtonsList buttons={fellowships} handleButtonClick={setChosenFellowship}
+          activeButtonName={chosenFellowship!}/>
+      </div>
+      <NewsfeedContainer fellowship={chosenFellowship!} />
     </Layout>
   )
 }
