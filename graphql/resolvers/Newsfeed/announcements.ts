@@ -1,5 +1,5 @@
-import db, {AnnouncementRow} from '../../db'
-import {DB_QUERY_BATCH_SIZE} from '../../../shared/constants';
+import db, { AnnouncementRow } from 'graphql/db';
+import { DB_QUERY_BATCH_SIZE } from 'shared/constants';
 
 type Args = {
   fellowship: string;
@@ -16,5 +16,5 @@ export default async function announcements(parent: unknown, {fellowship, offset
     `,
     [fellowship, 'all', DB_QUERY_BATCH_SIZE, offset]
   )
-  return announcements
+  return announcements;
 }

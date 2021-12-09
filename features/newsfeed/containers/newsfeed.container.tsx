@@ -1,10 +1,9 @@
-import Newsfeed from '../components/newsfeed.component';
-import {useQuery, DocumentNode, gql, GraphQLRequest} from '@apollo/client'
-import {useEffect, useState} from 'react'
-import {FellowshipName, Post, NewsfeedResponse} from '../../../shared/types'
-import {DB_QUERY_BATCH_SIZE} from '../../../shared/constants'
-import {isUser, isProject, isAnnouncement} from '../helpers/identifyPostType'
-import { fellowships } from 'graphql/resolvers/Query';
+import Newsfeed from 'features/newsfeed/components/newsfeed.component';
+import {useQuery, DocumentNode, gql } from '@apollo/client';
+import {useEffect, useState} from 'react';
+import {FellowshipName, Post, NewsfeedResponse} from 'shared/types';
+import {DB_QUERY_BATCH_SIZE} from 'shared/constants';
+import {isUser, isProject, isAnnouncement} from 'features/newsfeed/helpers/identifyPostType';
 
 type Props = {
   fellowship: FellowshipName;

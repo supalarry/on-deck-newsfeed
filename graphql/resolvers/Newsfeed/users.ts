@@ -1,5 +1,5 @@
-import db, {UserRow} from '../../db'
-import {DB_QUERY_BATCH_SIZE} from '../../../shared/constants';
+import db, { UserRow } from 'graphql/db';
+import { DB_QUERY_BATCH_SIZE } from 'shared/constants';
 
 type Args = {
   fellowships: string[];

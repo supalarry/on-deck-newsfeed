@@ -1,4 +1,4 @@
-import db, {UserRow} from '../../db'
+import db, { UserRow } from 'graphql/db';
 
 type Args = {
   id: string;

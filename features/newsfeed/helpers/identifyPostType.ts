@@ -1,4 +1,4 @@
-import {Post, User, Project, Announcement} from '../../../shared/types'
+import {Post, User, Project, Announcement} from 'shared/types';
 
 export function isUser(post: Post): post is User {
   return post.__typename === 'User';

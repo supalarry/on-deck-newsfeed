@@ -1,5 +1,5 @@
-import db, {ProjectRow} from '../../db'
-import {DB_QUERY_BATCH_SIZE} from '../../../shared/constants';
+import db, { ProjectRow } from 'graphql/db';
+import { DB_QUERY_BATCH_SIZE } from 'shared/constants';
 
 type Args = {
   offset: number;
@@ -14,5 +14,5 @@ export default async function projects(parent: unknown, {offset}: Args): Promise
     `,
     [DB_QUERY_BATCH_SIZE, offset]
   )
-  return projects
+  return projects;
 }

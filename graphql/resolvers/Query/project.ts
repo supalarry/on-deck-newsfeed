@@ -1,4 +1,4 @@
-import db, {ProjectRow} from '../../db'
+import db, { ProjectRow } from 'graphql/db';
 
 type Args = {
   id: string;

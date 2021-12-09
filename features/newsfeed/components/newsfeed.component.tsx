@@ -2,8 +2,8 @@ import UserCard from 'components/UserCard';
 import ProjectCard from 'components/ProjectCard';
 import AnnouncementCard from 'components/AnnouncementCard'; 
 import {Waypoint} from 'react-waypoint';
-import {Post} from '../../../shared/types';
-import {isUser, isProject, isAnnouncement} from '../helpers/identifyPostType';
+import {Post} from 'shared/types';
+import {isUser, isProject, isAnnouncement} from 'features/newsfeed/helpers/identifyPostType';
 
 type Props = {
   posts: Post[];

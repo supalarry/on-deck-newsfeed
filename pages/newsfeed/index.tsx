@@ -1,10 +1,10 @@
-import ButtonsList from '../../components/ButtonsList';
+import ButtonsList from 'components/ButtonsList';
 import Layout from 'components/Layout';
 import NewsfeedContainer from 'features/newsfeed/containers/newsfeed.container';
 import { useQuery, gql } from '@apollo/client';
 import { useState, useEffect } from 'react';
 import { Heading } from '@chakra-ui/react';
-import { FellowshipName } from '../../shared/types';
+import { FellowshipName } from 'shared/types';
 
 export default function NewsfeedPage() {
   const [fellowships, setFellowships] = useState<Fellowship[]>();
