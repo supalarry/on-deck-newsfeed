@@ -1,9 +1,9 @@
 import Newsfeed from 'features/newsfeed/components/newsfeed.component';
-import {useQuery, DocumentNode, gql } from '@apollo/client';
-import {useEffect, useState} from 'react';
-import {FellowshipName, Post, NewsfeedResponse} from 'shared/types';
-import {DB_QUERY_BATCH_SIZE} from 'shared/constants';
-import {isUser, isProject, isAnnouncement} from 'features/newsfeed/helpers/identifyPostType';
+import { useQuery, DocumentNode, gql } from '@apollo/client';
+import { useEffect, useState } from 'react';
+import { FellowshipName, Post, NewsfeedResponse} from 'shared/types';
+import { DB_QUERY_BATCH_SIZE } from 'shared/constants';
+import { isUser, isProject, isAnnouncement } from 'features/newsfeed/helpers/identifyPostType';
 
 type Props = {
   fellowship: FellowshipName;
@@ -27,29 +27,13 @@ let queryOffsets = {
 
 export default function NewsfeedContainer({fellowship} : Props) {
   const [posts, setPosts] = useState<Post[]>([]);
+
   const {data, error, loading, fetchMore} = useQuery<QueryData, QueryVars>(
     getNewsfeedQuery(fellowship),
     {
       variables: queryOffsets
     }
   )
-  
-  function fetchMorePosts() {
-    fetchMore({
-      variables: queryOffsets,
-      updateQuery: (pv, { fetchMoreResult }) => {
-        if (!fetchMoreResult) {
-          return pv;
-        }
-        return {
-          __typename: "Newsfeed",
-          newsfeed: {
-            ...fetchMoreResult.newsfeed,
-          }
-        }
-      }
-    })
-  }
 
   useEffect(() => {
     setPosts([]);
@@ -62,13 +46,29 @@ export default function NewsfeedContainer({fellowship} : Props) {
 
   useEffect(() => {
     if (data?.newsfeed && !loading && !error) {
-      let newPosts = getNewsfeedPosts(data.newsfeed);
-      newPosts = sortByNewest(newPosts);
-      newPosts = newPosts.slice(0, DB_QUERY_BATCH_SIZE);
-      updateOffsets(newPosts, queryOffsets);
+      const newPosts = getNextPostsBatch(data.newsfeed);
       setPosts([...posts, ...newPosts]);
+
+      updateQueryOffsets(queryOffsets, newPosts);
     }
   }, [data, loading, error])
+
+  function fetchMorePosts() {
+    fetchMore({
+      variables: queryOffsets,
+      updateQuery: (latestResult, { fetchMoreResult }) => {
+        if (!fetchMoreResult) {
+          return latestResult;
+        }
+        return {
+          __typename: "Newsfeed",
+          newsfeed: {
+            ...fetchMoreResult.newsfeed,
+          }
+        }
+      }
+    })
+  }
 
   if (!posts || loading || error) {
     return null
@@ -79,16 +79,26 @@ export default function NewsfeedContainer({fellowship} : Props) {
   )
 }
 
-function updateOffsets(posts: Post[], offsets: QueryVars) {
-  posts.forEach(post => {
-    if (isUser(post)) {
-      offsets.usersOffset += 1;
-    } else if (isProject(post)) {
-      offsets.projectsOffset += 1;
-    } else if (isAnnouncement(post)) {
-      offsets.announcementsOffset += 1;
+function getNextPostsBatch(newsfeed: NewsfeedResponse): Post[] {
+  let posts = getNewsfeedPosts(newsfeed);
+  posts = sortByNewest(posts);
+  posts = selectLatestPosts(posts, DB_QUERY_BATCH_SIZE);
+
+  return posts;
+}
+
+function getNewsfeedPosts(newsfeed: NewsfeedResponse): Post[] {
+  let posts: Post[] = [];
+  
+  const postsByCategories = Object.values(newsfeed);
+  postsByCategories.forEach(category => {
+    // Ignore Apollo server __typename string in response
+    if (typeof category === 'object') {
+      posts = [...posts, ...category];
     }
   })
+  
+  return posts;
 }
 
 function sortByNewest(posts: Post[]): Post[] {
@@ -101,18 +111,20 @@ function sortByNewest(posts: Post[]): Post[] {
   return postsCopy;
 }
 
-function getNewsfeedPosts(newsfeed: NewsfeedResponse): Post[] {
-  let posts: Post[] = [];
+function selectLatestPosts(posts: Post[], count: number) {
+  return posts.slice(0, count);
+}
 
-  const postsByCategories = Object.values(newsfeed);
-  postsByCategories.forEach(category => {
-    // Ignore Apollo server __typename string in response
-    if (typeof category === 'object') {
-      posts = [...posts, ...category];
+function updateQueryOffsets(offsets: QueryVars, posts: Post[]) {
+  posts.forEach(post => {
+    if (isUser(post)) {
+      offsets.usersOffset += 1;
+    } else if (isProject(post)) {
+      offsets.projectsOffset += 1;
+    } else if (isAnnouncement(post)) {
+      offsets.announcementsOffset += 1;
     }
   })
-
-  return posts;
 }
 
 function getNewsfeedQuery(fellowship: FellowshipName): DocumentNode {
