@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import Card from './Card'
 import Markdown from './Markdown'
+import { Text } from '@chakra-ui/react';
 
 type Props = {
   announcement: Announcement;
@@ -19,7 +20,7 @@ export default function AnnouncementCard({announcement}: Props) {
     <Card>
       <Columns>
         <ColumnRight>
-          <h2>{announcement.title}</h2>
+          <Text fontSize="lg" fontWeight="bold" mb={4}>{announcement.title}</Text>
           <Markdown>{announcement.body}</Markdown>
         </ColumnRight>
       </Columns>
