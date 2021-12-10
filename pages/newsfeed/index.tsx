@@ -3,7 +3,7 @@ import Layout from 'components/Layout';
 import NewsfeedContainer from 'features/newsfeed/containers/newsfeed.container';
 import { useQuery, gql } from '@apollo/client';
 import { useState, useEffect } from 'react';
-import { Heading, Box } from '@chakra-ui/react';
+import { Text, Box } from '@chakra-ui/react';
 import { FellowshipName } from 'shared/types';
 
 export default function NewsfeedPage() {
@@ -27,8 +27,8 @@ export default function NewsfeedPage() {
 
   return (
     <Layout>
-      <Box mt={8}>
-        <Heading mb={2}>Newsfeed for</Heading>
+      <Box mt={8} ml={{base: 4, md: 0}}>
+        <Text fontSize='4xl' color='#fafafa' mb={2}>Newsfeed for</Text>
         <ButtonsList buttons={fellowships} handleButtonClick={setChosenFellowship}
           activeButtonName={chosenFellowship!}/>
       </Box>
