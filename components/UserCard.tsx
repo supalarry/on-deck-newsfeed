@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import styled from 'styled-components'
-import Card from './Card'
-import Markdown from './Markdown'
+import { Flex, Image, Box, Text } from '@chakra-ui/react';
 
 type Props = {
   user: User;
@@ -24,26 +23,30 @@ type Project = {
 
 export default function UserCard({user}: Props) {
   return (
-    <Card>
-      <Columns>
-        <ColumnLeft>
-          <Avatar src={user.avatar_url}/>
-        </ColumnLeft>
-        <ColumnRight>
-          <h2>{user.name}</h2>
-          <p>Fellowship: {user.fellowship}</p>
-          <Markdown>{user.bio}</Markdown>
-          {!!user.projects?.length && (
+    <Box p={{base: 6, md: 8}} borderRadius="md" bg="#1b263c" color="#fafafa">
+      <Flex align="center">
+        <Image bg="#fafafa" borderRadius="full" p={2} src={user.avatar_url} boxSize="50px" />
+        <Box ml={4}>
+          <Text fontSize={{ base: '2xl', md: '4xl' }} fontWeight="bold">{user.name}</Text>
+          <Text textTransform="capitalize" mt={-2} opacity="0.7">
+            {user.fellowship} fellowship
+          </Text>
+        </Box>
+      </Flex>
+      <Box my={6}>
+          <Text>{user.bio}</Text>
+      </Box>
+        {!!user.projects?.length && (
+        <Box bg="#182135" borderRadius="md" px={4} py={2}>
             <>
-              <h3>Projects:</h3>
-              {user.projects.map(p => (
-                <Project key={p.id} project={p} />
+              <Text opacity="0.7" mb={2}>Projects</Text>
+              {user.projects.map((project, index) => (
+                <Project key={`${index}_${project.id}`} project={project} />
               ))}
             </>
-          )}
-        </ColumnRight>
-      </Columns>
-    </Card>
+        </Box>
+        )}
+    </Box>
   )
 }
 
