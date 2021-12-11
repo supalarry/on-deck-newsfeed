@@ -37,6 +37,15 @@ export default function NewsfeedContainer({fellowship} : Props) {
   )
 
   useEffect(() => {
+    if (posts) {
+      setPosts([]);
+      setUsersOffset(0);
+      setProjectsOffset(0);
+      setAnnouncementsOffset(0);
+    }
+  }, [fellowship])
+
+  useEffect(() => {
     if (data?.newsfeed && !loading && !error) {
       const newPosts = getNextPostsBatch(data.newsfeed);
       setPosts([...posts, ...newPosts]);
@@ -68,13 +77,6 @@ export default function NewsfeedContainer({fellowship} : Props) {
       }
     })
   }
-
-  useEffect(() => {
-    setPosts([]);
-    setUsersOffset(0);
-    setProjectsOffset(0);
-    setAnnouncementsOffset(0);
-  }, [fellowship])
 
   if (!posts || loading || error) {
     return null
