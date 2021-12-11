@@ -25,6 +25,15 @@ export default function NewsfeedContainer({fellowship} : Props) {
   const [projectsOffset, setProjectsOffset] = useState(0);
   const [announcementsOffset, setAnnouncementsOffset] = useState(0);
 
+  useEffect(() => {
+    if (posts) {
+      setPosts([]);
+      setUsersOffset(0);
+      setProjectsOffset(0);
+      setAnnouncementsOffset(0);
+    }
+  }, [fellowship])
+
   const {data, error, loading, fetchMore} = useQuery<QueryData, QueryVars>(
     getNewsfeedQuery(fellowship),
     {
@@ -35,15 +44,6 @@ export default function NewsfeedContainer({fellowship} : Props) {
       }
     }
   )
-
-  useEffect(() => {
-    if (posts) {
-      setPosts([]);
-      setUsersOffset(0);
-      setProjectsOffset(0);
-      setAnnouncementsOffset(0);
-    }
-  }, [fellowship])
 
   useEffect(() => {
     if (data?.newsfeed && !loading && !error) {
