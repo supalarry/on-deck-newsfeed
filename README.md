@@ -16,8 +16,9 @@
 ## What is this newsfeed about
 
 This project portrays a simplified slice of On Deck community platform. 
+It has been done as a part of application process.
 
-We have users participating in three fellowships:
+Feed has users participating in three fellowships:
 - Founders, modeled after the [On Deck Founders](https://www.beondeck.com/founders) program,
 - [Angels](https://www.beondeck.com/angels),
 - [Writers](https://www.beondeck.com/writers).
