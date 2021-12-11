@@ -41,7 +41,8 @@ export default function NewsfeedContainer({fellowship} : Props) {
         usersOffset: 0,
         projectsOffset: 0,
         announcementsOffset: 0
-      }
+      },
+      fetchPolicy:  "network-only"
     }
   )
 
