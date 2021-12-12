@@ -156,7 +156,7 @@ function getNewsfeedQuery(fellowship: FellowshipName): DocumentNode {
   const newsfeedQueries = {
     founders: gql`
       query newsfeed($usersOffset: Int!, $projectsOffset: Int!, $announcementsOffset: Int!) {
-        newsfeed {
+        newsfeed(id: "founders") {
           users(fellowships: ["founders", "angels"], offset: $usersOffset) {
             id
             name
@@ -197,7 +197,7 @@ function getNewsfeedQuery(fellowship: FellowshipName): DocumentNode {
       `,
     angels: gql`
       query newsfeed($usersOffset: Int!, $projectsOffset: Int!, $announcementsOffset: Int!) {
-        newsfeed {
+        newsfeed(id: "angels") {
           users(fellowships: ["founders", "angels"], offset: $usersOffset) {
             id
             name
@@ -238,7 +238,7 @@ function getNewsfeedQuery(fellowship: FellowshipName): DocumentNode {
     `,
     writers: gql`
       query newsfeed($usersOffset: Int!, $announcementsOffset: Int!) {
-        newsfeed {
+        newsfeed(id: "writers") {
           users(fellowships: ["writers"], offset: $usersOffset) {
             id
             name
